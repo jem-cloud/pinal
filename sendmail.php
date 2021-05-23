@@ -1,56 +1,53 @@
-<?php require 'PHPMailer/PHPMailerAutoload.php';?>
 <?php
-function Redirect_to($New_Location)
-{header("Location:" . $New_Location);
-    exit;
-}
+	use PHPMailer\PHPMailer\PHPMailer;
 
-if (isset($_POST['submit'])) {
-    contact();
-}
+	require_once 'phpmailer/Exception.php';
+	require_once 'phpmailer/PHPMailer.php';
+	require_once 'phpmailer/SMTP.php';
 
-function contact()
-{
-    if (isset($_POST['submit'])) {
+	$mail = new PHPMailer(true);
 
-        $fname = $_POST['firstname'];
-	$lname = $_POST['lastname'];
-	$phoneNum = $_POST['phoneumber'];
-	$email = $_POST['email'];
-	$package = $_POST['country'];
-	$message = $_POST['subject'];
+	$alert = '';
 
 
-        date_default_timezone_set('Etc/UTC');
 
-        $mail = new PHPMailer();
+	if(isset($_POST['submit'])){
+		$fname = $_POST['firstname'];
+		$lname = $_POST['lastname'];
+		$phoneNum = $_POST['phoneumber'];
+		$email = $_POST['email'];
+		$package = $_POST['country'];
+		$message = $_POST['subject'];
 
-        $mail->setFrom('jemina.cayme.sy@gmail.com');
-        $mail->addAddress('jemina.cayme.sy@gmail.com');
+		try{
+			$mail->isSMTP();
+			$mail->Host = 'smtp.gmail.com';
+			$mail->SMTPAuth = true;
+			$mail->Username = 'jemina.cayme.sy@gmail.com';
+			$mail->Password = 'asdfghjkl\~';
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+			$mail->Port = '587';
 
-        $mail->Subject = 'New form Submission (Contact Us)';
+			$mail->setFrom('jemina.cayme.sy@gmail.com');
+			$mail->addAddress('jemina.cayme.sy@gmail.com');
 
-        $mail->Body = "<h3>First Name: $fname <br /> 
-			Last Name: $lname <br />
-			Phone Number: $phoneNum <br /> 
-			Email: $email <br /> 
-			Package: $package <br /> 
-			Message: $message</h3>";
+			$mail->isHTML(true);
+			$mail->Subject = 'Message Received (Contact Page)';
+			$mail->Body = "<h3>First Name: $fname <br /> 
+						Last Name: $lname <br />
+						Phone Number: $phoneNum <br /> 
+						Email: $email <br /> 
+						Package: $package <br /> 
+						Message: $message</h3>";
 
-        $mail->isHTML(true);
-
-        if ($mail->send()) {
-            $alert = '<div class = "alert-success">
-			<span>Message sent! Thank you for contacting us.</span>
-			</div>';
-        } else {
-            $alert = '<div class = "alert-error">
-			<span>Something went wrong! Please try again later.</span>
-			</div>';
-        }
-
-    } 
-
-}
-
+			$mail->send();
+			$alert = '<div class = "alert-success">
+						<span>Message sent! Thank you for contacting us.</span>
+					</div>';
+		} catch (Exception $e){
+			$alert = '<div class = "alert-error">
+						<span>'.$e->getMessage().'</span>
+					</div>';
+		}
+	}
 ?>
