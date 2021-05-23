@@ -24,7 +24,7 @@
 			$mail->Host = 'smtp.gmail.com';
 			$mail->SMTPAuth = true;
 			$mail->Username = 'jemina.cayme.sy@gmail.com';
-			$mail->Password = 'asdfghjkl\~';
+			$mail->Password = 'ics2608asdfghjkl';
 			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 			$mail->Port = '587';
 
@@ -32,7 +32,7 @@
 			$mail->addAddress('jemina.cayme.sy@gmail.com');
 
 			$mail->isHTML(true);
-			$mail->Subject = 'Message Received (Contact Page)';
+			$mail->Subject = 'New Form Submission (Contact Us)';
 			$mail->Body = "<h3>First Name: $fname <br /> 
 						Last Name: $lname <br />
 						Phone Number: $phoneNum <br /> 
