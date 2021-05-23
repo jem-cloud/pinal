@@ -156,12 +156,6 @@ label{
 <body>
 
   <?php echo $alert; ?>
-  <!-- <div class="alert-succes">
-    <span>Message sent! Thank you for contacting us.</span>
-  </div>
-  <div class="alert-error">
-    <span>Something went wrong! Please try again.</span>
-  </div> -->
 
     
 	<div class="header">
