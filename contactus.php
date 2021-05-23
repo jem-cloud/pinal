@@ -1,4 +1,4 @@
-<?php include 'sendmail.php'; ?>
+<!-- <?php include 'sendmail.php'; ?> -->
 
 <!DOCTYPE html>
 <head>
